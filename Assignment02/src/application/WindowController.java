@@ -16,6 +16,7 @@ public class WindowController {
 	private Parent root;
 
 
+	//Load the Sign up window when the sign up button is clicked
 	public void SignUpWindow(ActionEvent event) throws IOException {
 
 		Parent root = FXMLLoader.load(getClass().getResource("SignUpWindow.fxml"));
@@ -25,6 +26,7 @@ public class WindowController {
 		stage.show();
 	}
 	
+	//Load the Login up window when the back button is clicked
 	public void LoginWindow(ActionEvent event) throws IOException {
 
 		Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
