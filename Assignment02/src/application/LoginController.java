@@ -17,6 +17,8 @@ import javafx.stage.Stage;
 
 public class LoginController {
 
+	//Static variable to store the logged-in username
+	private static String loggedInUsername;
 	//For the input user name and password an login
 	@FXML
 	TextField login_username;
@@ -45,17 +47,6 @@ public class LoginController {
 
 		String username = login_username.getText();
 		String password = login_password.getText();
-		//		
-		//		FXMLLoader loader = new FXMLLoader(getClass().getResource("Dashboard.fxml"));
-		//		root = loader.load();
-		//		
-		//		DashboardController dashboardcontroller = loader.getController();
-		//		dashboardcontroller.welcomeText(username);
-		//
-		//		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		//		scene = new Scene(root);
-		//		stage.setScene(scene);
-		//		stage.show();
 
 		//Check if the user name and password match in file
 		if (credentialsMatch(username, password)) {
@@ -66,10 +57,13 @@ public class LoginController {
 			DashboardController dashboardController = loader.getController();
 
 			//Get the combined first and last name from the profile
-			String fullName = getFullName(username);
+//			String fullName = getFullName(username);
 
 			//Set welcome message in the dashboard
-			dashboardController.welcomeText(fullName);
+//			dashboardController.welcomeText(fullName);
+
+			//Set the username
+			loggedInUsername = username;
 
 			stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 			scene = new Scene(root);
@@ -98,22 +92,26 @@ public class LoginController {
 	}
 
 	//Method to get the combined first and last name from the profile to send for the welcome message
-	private String getFullName(String username) {
-		File profilesFile = new File("Profiles.csv");
-		try {
-			return Files.lines(profilesFile.toPath())
-					.filter(line -> line.startsWith(username + ","))
-					.findFirst()
-					.map(line -> {
-						String[] parts = line.split(",");
-						return (parts.length == 4) ? parts[1] + " " + parts[2] : "";
-					})
-					.orElse("");
-		} catch (IOException e) {
-			e.printStackTrace();
-			// Handle the exception accordingly
-			return "";
-		}
+//	private String getFullName(String username) {
+//		File profilesFile = new File("Profiles.csv");
+//		try {
+//			return Files.lines(profilesFile.toPath())
+//					.filter(line -> line.startsWith(username + ","))
+//					.findFirst()
+//					.map(line -> {
+//						String[] parts = line.split(",");
+//						return (parts.length == 4) ? parts[1] + " " + parts[2] : "";
+//					})
+//					.orElse("");
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//			return "";
+//		}
+//
+//	}
 
+	// Method to get the logged-in username
+	public static String getLoggedInUsername() {
+		return loggedInUsername;
 	}
 }

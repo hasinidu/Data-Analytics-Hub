@@ -17,7 +17,7 @@
             <Font size="14.0" />
          </font>
       </Button>
-      <Button layoutX="829.0" layoutY="103.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="106.0" style="-fx-background-color: #2D3447; -fx-border-color: white;" text="Edit profile" textFill="WHITE">
+      <Button layoutX="829.0" layoutY="103.0" mnemonicParsing="false" onAction="#EditProfile" prefHeight="35.0" prefWidth="106.0" style="-fx-background-color: #2D3447; -fx-border-color: white;" text="Edit profile" textFill="WHITE">
          <font>
             <Font size="14.0" />
          </font>
@@ -32,7 +32,7 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <Button layoutX="607.0" layoutY="200.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #2D3447; -fx-border-color: white;" text="remove post" textFill="WHITE">
+      <Button layoutX="607.0" layoutY="200.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #2D3447; -fx-border-color: white;" text="Remove post" textFill="WHITE">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
