@@ -17,5 +17,40 @@
             <Font size="14.0" />
          </font>
       </Button>
+      <Button layoutX="829.0" layoutY="103.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="106.0" style="-fx-background-color: #2D3447; -fx-border-color: white;" text="Edit profile" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button layoutX="119.0" layoutY="200.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #2D3447; -fx-border-color: white;" text="Add post" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
+      <Button layoutX="366.0" layoutY="200.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #2D3447; -fx-border-color: white;" text="Find post" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
+      <Button layoutX="607.0" layoutY="200.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #2D3447; -fx-border-color: white;" text="remove post" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
+      <Button layoutX="119.0" layoutY="355.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #2D3447; -fx-border-color: white;" text="Most liked posts" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
+      <Button layoutX="366.0" layoutY="355.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #2D3447; -fx-border-color: white;" text="Export post" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
+      <Button layoutX="845.0" layoutY="480.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="74.0" style="-fx-background-color: #2D3447; -fx-border-color: white;" text="Log Out" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

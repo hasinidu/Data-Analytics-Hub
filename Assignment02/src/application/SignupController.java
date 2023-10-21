@@ -13,7 +13,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -26,14 +29,14 @@ public class SignupController {
 	@FXML
 	private TextField lNameField;
 	@FXML
-	private TextField passwordField;
+	private PasswordField passwordField;
 	@FXML
 	private Label errorMessage;
 
 	private Stage stage;
 	private Scene scene;
 
-	//Load the Login up window when the back button is clicked
+	//Load the Login up window when the back button is clicked or profile is created
 	public void LoginWindow(ActionEvent event) throws IOException {
 
 		Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
@@ -54,6 +57,7 @@ public class SignupController {
 		//Check if the user name already exists
 		if (usernameExists(username)) {
 			errorMessage.setText("Username already exists. Please choose another Username.");
+
 			return;
 		}
 
@@ -63,8 +67,16 @@ public class SignupController {
 
 		try {
 			Files.writeString(profilesFilePath, profileData, StandardOpenOption.APPEND, StandardOpenOption.CREATE);
-			errorMessage.setText("Signup successful!");
-			clearFields();
+
+
+			// Display success alert
+	        showAlert(AlertType.INFORMATION, "Profile Successfully Created", "Congratulations!",
+	                "Your profile has been successfully created.");
+
+	        // Clear fields and go back to login
+	        clearFields();
+	        LoginWindow(event);
+	        
 		} catch (IOException e) {
 			errorMessage.setText("Error storing profile data.");
 			e.printStackTrace(); 
@@ -79,9 +91,19 @@ public class SignupController {
 			return Files.lines(profilesFile.toPath())
 					.anyMatch(line -> line.startsWith(username + ","));
 		} catch (IOException e) {
-			e.printStackTrace(); // Handle the exception accordingly
+			e.printStackTrace(); 
+			//Handle the exception
 			return false;
 		}
+	}
+	
+	//Method to display an alert box
+	private void showAlert(AlertType alertType, String title, String header, String content) {
+	    Alert alert = new Alert(alertType);
+	    alert.setTitle(title);
+	    alert.setHeaderText(header);
+	    alert.setContentText(content);
+	    alert.showAndWait();
 	}
 
 	//Method to clear input fields and error message
