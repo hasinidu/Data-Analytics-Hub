@@ -19,11 +19,11 @@ public class LoginController {
 	TextField login_username;
 	@FXML
 	TextField login_password;
-	
+
 	private Stage stage;
 	private Scene scene;
 	private Parent root;
-	
+
 
 	//Load the Sign up window when the sign up button is clicked
 	public void SignUpWindow(ActionEvent event) throws IOException {
@@ -34,16 +34,16 @@ public class LoginController {
 		stage.setScene(scene);
 		stage.show();
 	}
-	
+
 	//When user clicks login checks login credentials
 	public void Login(ActionEvent event) throws IOException {
 
 		String username = login_username.getText();
 		String password = login_password.getText();
-		
+
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("Dashboard.fxml"));
 		root = loader.load();
-		
+
 		DashboardController dashboardcontroller = loader.getController();
 		dashboardcontroller.welcomeText(username);
 
@@ -52,7 +52,7 @@ public class LoginController {
 		stage.setScene(scene);
 		stage.show();
 	}
-	
-	
-	
+
+
+
 }

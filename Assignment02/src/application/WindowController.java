@@ -13,9 +13,8 @@ public class WindowController {
 
 	private Stage stage;
 	private Scene scene;
-	private Parent root;
 
-	
+
 	//Load the Login up window when the back button is clicked
 	public void LoginWindow(ActionEvent event) throws IOException {
 
