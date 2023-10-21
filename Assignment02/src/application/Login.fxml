@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #2D3447;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.WindowController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #2D3447;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginController">
    <children>
       <Button layoutX="890.0" layoutY="48.0" mnemonicParsing="false" onAction="#SignUpWindow" prefHeight="32.0" prefWidth="76.0" style="-fx-border-color: white; -fx-background-color: #2D3447;" text="Sign Up" textFill="WHITE">
          <font>
@@ -22,7 +22,7 @@
             <Font size="48.0" />
          </font>
       </Label>
-      <Button layoutX="562.0" layoutY="412.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" style="-fx-border-color: white; -fx-background-color: #2D3447;" text="Log In" textFill="WHITE">
+      <Button layoutX="562.0" layoutY="412.0" mnemonicParsing="false" onAction="#Login" prefHeight="32.0" prefWidth="69.0" style="-fx-border-color: white; -fx-background-color: #2D3447;" text="Log In" textFill="WHITE">
          <font>
             <Font size="14.0" />
          </font>
@@ -32,12 +32,12 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField layoutX="369.0" layoutY="306.0" prefHeight="32.0" prefWidth="262.0" promptText="Username" style="-fx-background-color: #2d3447; -fx-border-color: white; -fx-text-fill: white;">
+      <TextField fx:id="login_username" layoutX="369.0" layoutY="306.0" prefHeight="32.0" prefWidth="262.0" promptText="Username" style="-fx-background-color: #2d3447; -fx-border-color: white; -fx-text-fill: white;">
          <font>
             <Font size="14.0" />
          </font>
       </TextField>
-      <TextField layoutX="369.0" layoutY="351.0" prefHeight="30.0" prefWidth="262.0" promptText="Password" style="-fx-background-color: #2d3447; -fx-border-color: white; -fx-text-fill: white;">
+      <TextField fx:id="login_password" layoutX="369.0" layoutY="351.0" prefHeight="30.0" prefWidth="262.0" promptText="Password" style="-fx-background-color: #2d3447; -fx-border-color: white; -fx-text-fill: white;">
          <font>
             <Font size="14.0" />
          </font>
