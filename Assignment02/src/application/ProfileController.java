@@ -25,10 +25,12 @@ public class ProfileController {
 	@FXML
 	TextField lNameField;
 	@FXML
-    private Label errorMessage;
+	private Label errorMessage;
 
 	private Stage stage;
 	private Scene scene;
+	private Parent root;
+
 
 	@FXML
 	public void initialize() {
@@ -56,72 +58,87 @@ public class ProfileController {
 
 	//Load the Dashboard window when the back button is clicked
 	public void Dashboard(ActionEvent event) throws IOException {
+		//Load the dashboard
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("Dashboard.fxml"));
+		root = loader.load();
 
-		Parent root = FXMLLoader.load(getClass().getResource("Dashboard.fxml"));
-		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		//Manually call initialize method of DashboardController
+		DashboardController dashboardController = loader.getController();
+		dashboardController.initialize();
+
+		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
 	}
 
-	// Confirm edit profile changes when clicked
+
+	//Confirm edit profile changes when clicked
 	public void editProfile(ActionEvent event) throws IOException {
-	    //Check if the new username is unique
-	    String newUsername = usernameField.getText();
-	    if (!newUsername.equals(LoginController.getLoggedInUsername()) && usernameExists(newUsername)) {
-	        errorMessage.setText("Username already exists. Please choose another.");
-	        return;
-	    }
+		//Check if the new username is unique
+		String newUsername = usernameField.getText();
+		if (!newUsername.equals(LoginController.getLoggedInUsername()) && usernameExists(newUsername)) {
+			errorMessage.setText("Username already exists. Please choose another.");
+			return;
+		}
 
-	    // Update the profile with the new data, keeping the existing password
-	    String existingPassword = getPasswordForUsername(LoginController.getLoggedInUsername());
-	    String newProfileData = String.format("%s,%s,%s,%s%n", newUsername, fNameField.getText(), lNameField.getText(), existingPassword);
-	    Path profilesFilePath = Path.of("Profiles.csv");
+		// Update the profile with the new data, keeping the existing password
+		String existingPassword = getPasswordForUsername(LoginController.getLoggedInUsername());
+		String newProfileData = String.format("%s,%s,%s,%s%n", newUsername, fNameField.getText(), lNameField.getText(), existingPassword);
+		System.out.println(newUsername);
 
-	    try {
-	        List<String> allLines = Files.readAllLines(profilesFilePath);
-	        for (int i = 0; i < allLines.size(); i++) {
-	            String line = allLines.get(i);
-	            if (line.startsWith(LoginController.getLoggedInUsername() + ",")) {
-	                allLines.set(i, newProfileData);
-	                break;
-	            }
-	        }
-	        Files.write(profilesFilePath, allLines);
-	        errorMessage.setText("Profile successfully updated!");
-	    } catch (IOException e) {
-	        errorMessage.setText("Error updating profile data.");
-	        e.printStackTrace(); // Handle the exception accordingly
-	    }
+		Path profilesFilePath = Path.of("Profiles.csv");
+
+		//Update LoggedInUsername
+		//System.out.println(LoginController.getLoggedInUsername());
+		LoginController.setLoggedInUsername(newUsername);
+		//System.out.println(newUsername);
+		//System.out.println(LoginController.getLoggedInUsername());
+
+		try {
+			List<String> allLines = Files.readAllLines(profilesFilePath);
+			for (int i = 0; i < allLines.size(); i++) {
+				String line = allLines.get(i);
+				if (line.startsWith(LoginController.getLoggedInUsername() + ",")) {
+					allLines.set(i, newProfileData);
+					break;
+				}
+			}
+			Files.write(profilesFilePath, allLines);
+			errorMessage.setText("Profile successfully updated!");
+		} catch (IOException e) {
+			errorMessage.setText("Error updating profile data.");
+			e.printStackTrace(); // Handle the exception accordingly
+		}
 	}
 
 	//Method to get the password for a given username
 	private String getPasswordForUsername(String username) {
-	    File profilesFile = new File("Profiles.csv");
-	    try {
-	        return Files.lines(profilesFile.toPath())
-	                .filter(line -> line.startsWith(username + ","))
-	                .findFirst()
-	                .map(line -> {
-	                    String[] parts = line.split(",");
-	                    return (parts.length == 4) ? parts[3] : "";
-	                })
-	                .orElse("");
-	    } catch (IOException e) {
-	        e.printStackTrace(); // Handle the exception accordingly
-	        return "";
-	    }
+		File profilesFile = new File("Profiles.csv");
+		try {
+			return Files.lines(profilesFile.toPath())
+					.filter(line -> line.startsWith(username + ","))
+					.findFirst()
+					.map(line -> {
+						String[] parts = line.split(",");
+						return (parts.length == 4) ? parts[3] : "";
+					})
+					.orElse("");
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "";
+		}
 	}
 
-    //Method to check if a username already exists
-    private boolean usernameExists(String username) {
-        File profilesFile = new File("Profiles.csv");
-        try {
-            return Files.lines(profilesFile.toPath()).anyMatch(line -> line.startsWith(username + ","));
-        } catch (IOException e) {
-            e.printStackTrace(); // Handle the exception accordingly
-            return false;
-        }
-    }
+	//Method to check if a username already exists
+	private boolean usernameExists(String username) {
+		File profilesFile = new File("Profiles.csv");
+		try {
+			return Files.lines(profilesFile.toPath()).anyMatch(line -> line.startsWith(username + ","));
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 
 }

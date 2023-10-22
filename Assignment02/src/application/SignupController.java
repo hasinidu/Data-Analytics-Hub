@@ -67,7 +67,7 @@ public class SignupController {
 
 		try {
 			Files.writeString(profilesFilePath, profileData, StandardOpenOption.APPEND, StandardOpenOption.CREATE);
-
+			
 
 			// Display success alert
 	        showAlert(AlertType.INFORMATION, "Profile Successfully Created", "Congratulations!",

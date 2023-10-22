@@ -50,20 +50,15 @@ public class LoginController {
 
 		//Check if the user name and password match in file
 		if (credentialsMatch(username, password)) {
+			
+			//Set the username
+			setLoggedInUsername(username);
+			
 			//Load the dashboard
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("Dashboard.fxml"));
 			root = loader.load();
 
 			DashboardController dashboardController = loader.getController();
-
-			//Get the combined first and last name from the profile
-//			String fullName = getFullName(username);
-
-			//Set welcome message in the dashboard
-//			dashboardController.welcomeText(fullName);
-
-			//Set the username
-			loggedInUsername = username;
 
 			stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 			scene = new Scene(root);
@@ -91,27 +86,16 @@ public class LoginController {
 		}
 	}
 
-	//Method to get the combined first and last name from the profile to send for the welcome message
-//	private String getFullName(String username) {
-//		File profilesFile = new File("Profiles.csv");
-//		try {
-//			return Files.lines(profilesFile.toPath())
-//					.filter(line -> line.startsWith(username + ","))
-//					.findFirst()
-//					.map(line -> {
-//						String[] parts = line.split(",");
-//						return (parts.length == 4) ? parts[1] + " " + parts[2] : "";
-//					})
-//					.orElse("");
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//			return "";
-//		}
-//
-//	}
 
-	// Method to get the logged-in username
+	//Method to get the logged-in username
 	public static String getLoggedInUsername() {
 		return loggedInUsername;
 	}
+
+	//Method to Set the logged-in username
+	public static void setLoggedInUsername(String username) {
+		loggedInUsername = username;
+	}
+
+
 }
