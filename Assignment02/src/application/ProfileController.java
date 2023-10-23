@@ -13,6 +13,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -24,6 +25,12 @@ public class ProfileController {
 	TextField fNameField;
 	@FXML
 	TextField lNameField;
+	@FXML
+    private PasswordField passwordField;
+    @FXML
+    private PasswordField newPasswordField;
+    @FXML
+    private PasswordField newPasswordField2;
 	@FXML
 	private Label errorMessage;
 
@@ -37,7 +44,7 @@ public class ProfileController {
 		//Initialize the text fields when the controller is loaded
 		String loggedInUsername = LoginController.getLoggedInUsername();
 		usernameField.setText(loggedInUsername);        
-		// Auto-fill other text fields
+		//Fill other text fields
 		try {
 			File profilesFile = new File("Profiles.csv");
 			List<String> lines = Files.readAllLines(Path.of(profilesFile.getPath()));
@@ -47,7 +54,7 @@ public class ProfileController {
 				if (parts.length == 4 && parts[0].equals(loggedInUsername)) {
 					fNameField.setText(parts[1]);
 					lNameField.setText(parts[2]);
-					break; // Found the matching profile, no need to continue
+					break; //Break when the matching profile is found
 				}
 			}
 		} catch (IOException e) {
@@ -108,9 +115,59 @@ public class ProfileController {
 			errorMessage.setText("Profile successfully updated!");
 		} catch (IOException e) {
 			errorMessage.setText("Error updating profile data.");
-			e.printStackTrace(); // Handle the exception accordingly
+			e.printStackTrace();
 		}
 	}
+	
+	@FXML
+    public void changePassword(ActionEvent event) throws IOException {
+        String oldPassword = passwordField.getText();
+        String newPassword = newPasswordField.getText();
+        String confirmPassword = newPasswordField2.getText();
+
+        //Check if old password matches the current password
+        if (!oldPassword.equals(getPasswordForUsername(LoginController.getLoggedInUsername()))) {
+            errorMessage.setText("Incorrect old password. Please try again.");
+            return;
+        }
+
+        //Check if new password and confirm password match
+        if (!newPassword.equals(confirmPassword)) {
+            errorMessage.setText("New passwords do not match. Please confirm your new password.");
+            return;
+        }
+
+        //Update the password in the CSV file
+        updatePassword(newPassword);
+
+        errorMessage.setText("Password successfully changed!");
+    }
+
+
+	//Method to change password which is called in changePassword method
+    private void updatePassword(String newPassword) {
+        String username = LoginController.getLoggedInUsername();
+        Path profilesFilePath = Path.of("Profiles.csv");
+
+        try {
+            List<String> allLines = Files.readAllLines(profilesFilePath);
+            for (int i = 0; i < allLines.size(); i++) {
+                String line = allLines.get(i);
+                if (line.startsWith(username + ",")) {
+                    String[] parts = line.split(",");
+                    if (parts.length == 4) {
+                        parts[3] = newPassword;
+                        allLines.set(i, String.join(",", parts));
+                        break;
+                    }
+                }
+            }
+            Files.write(profilesFilePath, allLines);
+        } catch (IOException e) {
+            errorMessage.setText("Error updating password.");
+            e.printStackTrace(); 
+        }
+    }
 
 	//Method to get the password for a given username
 	private String getPasswordForUsername(String username) {

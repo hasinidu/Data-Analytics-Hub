@@ -13,7 +13,8 @@ import javafx.scene.Scene;
 public class Main extends Application {
 
 	private static final String PROFILES_FILE_PATH = "Profiles.csv";
-
+	private static final String POSTS_FILE_PATH = "Posts.csv";
+	
 	@Override
 	public void start(Stage primaryStage) {
 		try {
@@ -28,9 +29,23 @@ public class Main extends Application {
 					System.out.println("Profiles.csv file created.");
 				} catch (IOException e) {
 					System.err.println("Error creating Profiles.csv file: " + e.getMessage());
-					//Handle the exception accordingly
+					
 				}
 			}
+			
+			//Check if the "Posts.csv" file exists
+            File postsFile = new File(POSTS_FILE_PATH);
+
+            if (!postsFile.exists()) {
+                //Create the file if the file doesn't exist
+                try {
+                    postsFile.createNewFile();
+                    System.out.println("Posts.csv file created.");
+                } catch (IOException e) {
+                    System.err.println("Error creating Posts.csv file: " + e.getMessage());
+                  
+                }
+            }
 
 			//Load the main Login window when the application starts
 			Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
