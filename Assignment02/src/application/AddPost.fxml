@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #2D3447;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #2D3447;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AddpostsController">
    <children>
       <Label layoutX="176.0" layoutY="61.0" text="Add Posts" textFill="WHITE">
          <font>
@@ -30,12 +30,12 @@
             <Font size="14.0" />
          </font>
       </Button>
-      <Button layoutX="778.0" layoutY="499.0" mnemonicParsing="false" onAction="#editProfile" prefHeight="32.0" prefWidth="92.0" style="-fx-background-color: #2D3447; -fx-border-color: white;" text="Confirm" textFill="WHITE">
+      <Button layoutX="778.0" layoutY="499.0" mnemonicParsing="false" onAction="#addPost" prefHeight="32.0" prefWidth="92.0" style="-fx-background-color: #2D3447; -fx-border-color: white;" text="Confirm" textFill="WHITE">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Label fx:id="errorMessage" layoutX="79.0" layoutY="140.0" prefHeight="20.0" prefWidth="15.0" textFill="#ff007f">
+      <Label fx:id="errorMessage" layoutX="94.0" layoutY="142.0" prefHeight="20.0" prefWidth="465.0" textFill="#ff007f">
          <font>
             <Font size="14.0" />
          </font>
@@ -46,35 +46,45 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="authorField" layoutX="583.0" layoutY="220.0" prefHeight="32.0" prefWidth="287.0" style="-fx-background-color: #2D3447; -fx-border-color: white; -fx-text-fill: white;">
+      <TextField fx:id="authorField" layoutX="583.0" layoutY="142.0" prefHeight="32.0" prefWidth="287.0" style="-fx-background-color: #2D3447; -fx-border-color: white; -fx-text-fill: white;">
          <font>
             <Font size="14.0" />
          </font>
       </TextField>
-      <Label layoutX="582.0" layoutY="191.0" text="Author" textFill="WHITE">
+      <Label layoutX="582.0" layoutY="113.0" text="Author" textFill="WHITE">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="likesField" layoutX="583.0" layoutY="315.0" prefHeight="32.0" prefWidth="287.0" style="-fx-background-color: #2D3447; -fx-border-color: white; -fx-text-fill: white;">
+      <TextField fx:id="likesField" layoutX="583.0" layoutY="237.0" prefHeight="32.0" prefWidth="287.0" style="-fx-background-color: #2D3447; -fx-border-color: white; -fx-text-fill: white;">
          <font>
             <Font size="14.0" />
          </font>
       </TextField>
-      <Label layoutX="588.0" layoutY="284.0" text="Likes" textFill="WHITE">
+      <Label layoutX="588.0" layoutY="206.0" text="Likes" textFill="WHITE">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="sharesField" layoutX="583.0" layoutY="406.0" prefHeight="32.0" prefWidth="287.0" style="-fx-background-color: #2D3447; -fx-border-color: white; -fx-text-fill: white;">
+      <TextField fx:id="sharesField" layoutX="583.0" layoutY="328.0" prefHeight="32.0" prefWidth="287.0" style="-fx-background-color: #2D3447; -fx-border-color: white; -fx-text-fill: white;">
          <font>
             <Font size="14.0" />
          </font>
       </TextField>
-      <Label layoutX="583.0" layoutY="377.0" text="Shares" textFill="WHITE">
+      <Label layoutX="583.0" layoutY="299.0" text="Shares" textFill="WHITE">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
+      <Label layoutX="583.0" layoutY="392.0" text="Date &amp; Time (DD/MM/YYYY HH:MM) " textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="dateTimeField" layoutX="583.0" layoutY="421.0" prefHeight="32.0" prefWidth="287.0" style="-fx-background-color: #2D3447; -fx-border-color: white; -fx-text-fill: white;">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
    </children>
 </AnchorPane>
