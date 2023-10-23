@@ -27,9 +27,8 @@ public class DashboardController {
 	Label welcomeText;
 	@FXML
 	TextField postIDField;
-
-	//Get the post ID from the TextField
-	String postID = postIDField.getText();
+	@FXML
+	private Label errorMessage;
 
 	@FXML
 	public void initialize() {
@@ -99,6 +98,9 @@ public class DashboardController {
 	//Load the retrieve post window 
 	public void RetrievePost(ActionEvent event) throws IOException {
 
+		//Get the post ID from the TextField
+		String postID = postIDField.getText();
+		
 		//Check if the post ID exists or display an error
 		if (isPostIDValid(postID)) {
 			//Set the postID
@@ -112,8 +114,8 @@ public class DashboardController {
 			stage.show();
 			
 		}else {
-			// Display an error message
-			System.out.println("Error: Post ID does not exist");
+			//Display an error message
+			errorMessage.setText("Post ID does not exist");
 		}
 		
 	}
@@ -121,6 +123,9 @@ public class DashboardController {
 	//Load the retrieve post window 
 	public void RemovePost(ActionEvent event) throws IOException {
 
+		//Get the post ID from the TextField
+		String postID = postIDField.getText();
+		
 		Parent root = FXMLLoader.load(getClass().getResource("AddPost.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene = new Scene(root);

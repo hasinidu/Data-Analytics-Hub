@@ -8,19 +8,19 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #2D3447;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #2D3447;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.RetrievePostController">
    <children>
       <Label layoutX="186.0" layoutY="71.0" text="Post" textFill="WHITE">
          <font>
             <Font size="36.0" />
          </font>
       </Label>
-      <TextField fx:id="postIDField" layoutX="111.0" layoutY="230.0" prefHeight="32.0" prefWidth="287.0" style="-fx-background-color: #2D3447; -fx-border-color: white; -fx-text-fill: white;">
+      <TextField fx:id="postIDField" layoutX="111.0" layoutY="186.0" prefHeight="32.0" prefWidth="287.0" style="-fx-background-color: #2D3447; -fx-border-color: white; -fx-text-fill: white;">
          <font>
             <Font size="14.0" />
          </font>
       </TextField>
-      <Label layoutX="111.0" layoutY="201.0" text="Post ID" textFill="WHITE">
+      <Label layoutX="111.0" layoutY="157.0" text="Post ID" textFill="WHITE">
          <font>
             <Font size="14.0" />
          </font>
@@ -30,48 +30,48 @@
             <Font size="14.0" />
          </font>
       </Button>
-      <TextArea fx:id="contentField" layoutX="111.0" layoutY="325.0" prefHeight="200.0" prefWidth="333.0" style="-fx-control-inner-background: #2D3447; -fx-background-color: #2D3447; -fx-text-fill: white; -fx-border-color: white;" />
-      <Label layoutX="111.0" layoutY="294.0" text="Post Content" textFill="WHITE">
+      <TextArea fx:id="contentField" layoutX="111.0" layoutY="281.0" prefHeight="200.0" prefWidth="333.0" style="-fx-control-inner-background: #2D3447; -fx-background-color: #2D3447; -fx-text-fill: white; -fx-border-color: white;" />
+      <Label layoutX="111.0" layoutY="250.0" text="Post Content" textFill="WHITE">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="authorField" layoutX="593.0" layoutY="152.0" prefHeight="32.0" prefWidth="287.0" style="-fx-background-color: #2D3447; -fx-border-color: white; -fx-text-fill: white;">
+      <TextField fx:id="authorField" layoutX="595.0" layoutY="186.0" prefHeight="32.0" prefWidth="287.0" style="-fx-background-color: #2D3447; -fx-border-color: white; -fx-text-fill: white;">
          <font>
             <Font size="14.0" />
          </font>
       </TextField>
-      <Label layoutX="592.0" layoutY="123.0" text="Author" textFill="WHITE">
+      <Label layoutX="594.0" layoutY="157.0" text="Author" textFill="WHITE">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="likesField" layoutX="593.0" layoutY="247.0" prefHeight="32.0" prefWidth="287.0" style="-fx-background-color: #2D3447; -fx-border-color: white; -fx-text-fill: white;">
+      <TextField fx:id="likesField" layoutX="595.0" layoutY="281.0" prefHeight="32.0" prefWidth="287.0" style="-fx-background-color: #2D3447; -fx-border-color: white; -fx-text-fill: white;">
          <font>
             <Font size="14.0" />
          </font>
       </TextField>
-      <Label layoutX="598.0" layoutY="216.0" text="Likes" textFill="WHITE">
+      <Label layoutX="600.0" layoutY="250.0" text="Likes" textFill="WHITE">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="sharesField" layoutX="593.0" layoutY="338.0" prefHeight="32.0" prefWidth="287.0" style="-fx-background-color: #2D3447; -fx-border-color: white; -fx-text-fill: white;">
+      <TextField fx:id="sharesField" layoutX="595.0" layoutY="372.0" prefHeight="32.0" prefWidth="287.0" style="-fx-background-color: #2D3447; -fx-border-color: white; -fx-text-fill: white;">
          <font>
             <Font size="14.0" />
          </font>
       </TextField>
-      <Label layoutX="593.0" layoutY="309.0" text="Shares" textFill="WHITE">
+      <Label layoutX="595.0" layoutY="343.0" text="Shares" textFill="WHITE">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="593.0" layoutY="402.0" text="Date &amp; Time (DD/MM/YYYY HH:MM) " textFill="WHITE">
+      <Label layoutX="595.0" layoutY="436.0" text="Date &amp; Time (DD/MM/YYYY HH:MM) " textFill="WHITE">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="dateTimeField" layoutX="593.0" layoutY="431.0" prefHeight="32.0" prefWidth="287.0" style="-fx-background-color: #2D3447; -fx-border-color: white; -fx-text-fill: white;">
+      <TextField fx:id="dateTimeField" layoutX="595.0" layoutY="465.0" prefHeight="32.0" prefWidth="287.0" style="-fx-background-color: #2D3447; -fx-border-color: white; -fx-text-fill: white;">
          <font>
             <Font size="14.0" />
          </font>
