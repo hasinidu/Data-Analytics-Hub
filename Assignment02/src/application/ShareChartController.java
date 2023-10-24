@@ -57,6 +57,7 @@ public class ShareChartController {
 		//Set the pie chart data
 		pieChart.setData(pieChartData);
 		pieChart.setTitle("Share Distribution");
+		
 	}
 
 	//Read shares data from the posts.csv file

@@ -23,6 +23,6 @@
             <Font size="14.0" />
          </font>
       </Button>
-      <PieChart fx:id="pieChart" layoutX="220.0" layoutY="143.0" />
+      <PieChart fx:id="pieChart" layoutX="220.0" layoutY="143.0" style="-fx-background-color: #6581a1;" />
    </children>
 </AnchorPane>
