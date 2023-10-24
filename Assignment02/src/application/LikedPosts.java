@@ -57,7 +57,7 @@ public class LikedPosts {
 		List<String> mostLikedPosts = new ArrayList<>();
 
 		try {
-			File postsFile = new File("Posts.csv");
+			File postsFile = new File(Main.POSTS_FILE_PATH);
 			BufferedReader reader = new BufferedReader(new FileReader(postsFile));
 
 			// Get all posts, sorted by like count in descending order

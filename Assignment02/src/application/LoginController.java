@@ -79,7 +79,7 @@ public class LoginController {
 			return Files.lines(profilesFile.toPath())
 					.anyMatch(line -> {
 						String[] parts = line.split(",");
-						return parts.length == 4 && parts[0].equals(username) && parts[3].equals(password);
+						return parts.length == 5 && parts[0].equals(username) && parts[3].equals(password);
 					});
 		} catch (IOException e) {
 			e.printStackTrace();

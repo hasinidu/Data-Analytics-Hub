@@ -62,8 +62,8 @@ public class SignupController {
 		}
 
 		//Store the new profile in Profiles.csv
-		String profileData = String.format("%s,%s,%s,%s%n", username, fName, lName, password);
-		Path profilesFilePath = Path.of("Profiles.csv");
+		String profileData = String.format("%s,%s,%s,%s,%s%n", username, fName, lName, password, "nonvip");
+		Path profilesFilePath = Path.of(Main.PROFILES_FILE_PATH);
 
 		try {
 			Files.writeString(profilesFilePath, profileData, StandardOpenOption.APPEND, StandardOpenOption.CREATE);
@@ -86,7 +86,7 @@ public class SignupController {
 
 	//Method to check if user name already exists
 	private boolean usernameExists(String username) {
-		File profilesFile = new File("Profiles.csv");
+		File profilesFile = new File(Main.PROFILES_FILE_PATH);
 		try {
 			return Files.lines(profilesFile.toPath())
 					.anyMatch(line -> line.startsWith(username + ","));

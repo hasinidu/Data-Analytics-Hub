@@ -49,12 +49,12 @@ public class ProfileController {
 		usernameField.setText(loggedInUsername);        
 		//Fill other text fields
 		try {
-			File profilesFile = new File("Profiles.csv");
+			File profilesFile = new File(Main.PROFILES_FILE_PATH);
 			List<String> lines = Files.readAllLines(Path.of(profilesFile.getPath()));
 
 			for (String line : lines) {
 				String[] parts = line.split(",");
-				if (parts.length == 4 && parts[0].equals(loggedInUsername)) {
+				if (parts.length == 5 && parts[0].equals(loggedInUsername)) {
 					fNameField.setText(parts[1]);
 					lNameField.setText(parts[2]);
 					break; //Break when the matching profile is found
@@ -83,45 +83,46 @@ public class ProfileController {
 	}
 
 
-	//Confirm edit profile changes when clicked
 	public void editProfile(ActionEvent event) throws IOException {
-		//Check if the new username is unique
-		String newUsername = usernameField.getText();
-		if (!newUsername.equals(LoginController.getLoggedInUsername()) && usernameExists(newUsername)) {
-			errorMessage.setText("Username already exists. Please choose another.");
-			return;
-		}
+	    // Check if the new username is unique
+	    String newUsername = usernameField.getText();
+	    if (!newUsername.equals(LoginController.getLoggedInUsername()) && usernameExists(newUsername)) {
+	        errorMessage.setText("Username already exists. Please choose another.");
+	        return;
+	    }
 
-		// Update the profile with the new data, keeping the existing password
-		String existingPassword = getPasswordForUsername(LoginController.getLoggedInUsername());
-		String newProfileData = String.format("%s,%s,%s,%s%n", newUsername, fNameField.getText(), lNameField.getText(), existingPassword);
-		System.out.println(newUsername);
+	    // Update the profile with the new data, keeping the existing password and VIP status
+	    String existingPassword = getPasswordForUsername(LoginController.getLoggedInUsername());
 
-		Path profilesFilePath = Path.of("Profiles.csv");
+	    // Path to csv file
+	    Path profilesFilePath = Path.of(Main.PROFILES_FILE_PATH);
+	    LoginController.setLoggedInUsername(newUsername);
 
-		//Update LoggedInUsername
-		//System.out.println(LoginController.getLoggedInUsername());
-		LoginController.setLoggedInUsername(newUsername);
-		//System.out.println(newUsername);
-		//System.out.println(LoginController.getLoggedInUsername());
-
-		try {
-			List<String> allLines = Files.readAllLines(profilesFilePath);
-			for (int i = 0; i < allLines.size(); i++) {
-				String line = allLines.get(i);
-				if (line.startsWith(LoginController.getLoggedInUsername() + ",")) {
-					allLines.set(i, newProfileData);
-					break;
-				}
-			}
-			Files.write(profilesFilePath, allLines);
-			// Display success alert
-			showAlert(AlertType.WARNING, "Success", "profile updated Successfully");
-		} catch (IOException e) {
-			errorMessage.setText("Error updating profile data.");
-			e.printStackTrace();
-		}
+	    try {
+	        List<String> allLines = Files.readAllLines(profilesFilePath);
+	        for (int i = 0; i < allLines.size(); i++) {
+	            String line = allLines.get(i);
+	            if (line.startsWith(LoginController.getLoggedInUsername() + ",")) {
+	                String[] parts = line.split(",");
+	                if (parts.length >= 4) {
+	                    //Preserve existing VIP status
+	                    String existingVipStatus = (parts.length >= 5) ? parts[4] : "";
+	                    //Form the new profile data with existing VIP status
+	                    String newProfileData = String.format("%s,%s,%s,%s,%s%n", newUsername, fNameField.getText(), lNameField.getText(), existingPassword, existingVipStatus);
+	                    allLines.set(i, newProfileData);
+	                    break;
+	                }
+	            }
+	        }
+	        Files.write(profilesFilePath, allLines);
+	        // Display success alert
+	        showAlert(AlertType.WARNING, "Success", "Profile updated Successfully");
+	    } catch (IOException e) {
+	        errorMessage.setText("Error updating profile data.");
+	        e.printStackTrace();
+	    }
 	}
+
 
 	@FXML
 	public void changePassword(ActionEvent event) throws IOException {
@@ -148,31 +149,31 @@ public class ProfileController {
 		showAlert(AlertType.WARNING, "Success", "Password changed");
 	}
 
-
-	//Method to change password which is called in changePassword method
+	// Method to change password which is called in changePassword method
 	private void updatePassword(String newPassword) {
-		String username = LoginController.getLoggedInUsername();
-		Path profilesFilePath = Path.of("Profiles.csv");
+	    String username = LoginController.getLoggedInUsername();
+	    Path profilesFilePath = Path.of(Main.PROFILES_FILE_PATH);
 
-		try {
-			List<String> allLines = Files.readAllLines(profilesFilePath);
-			for (int i = 0; i < allLines.size(); i++) {
-				String line = allLines.get(i);
-				if (line.startsWith(username + ",")) {
-					String[] parts = line.split(",");
-					if (parts.length == 4) {
-						parts[3] = newPassword;
-						allLines.set(i, String.join(",", parts));
-						break;
-					}
-				}
-			}
-			Files.write(profilesFilePath, allLines);
-		} catch (IOException e) {
-			errorMessage.setText("Error updating password.");
-			e.printStackTrace(); 
-		}
+	    try {
+	        List<String> allLines = Files.readAllLines(profilesFilePath);
+	        for (int i = 0; i < allLines.size(); i++) {
+	            String line = allLines.get(i);
+	            if (line.startsWith(username + ",")) {
+	                String[] parts = line.split(",");
+	                if (parts.length >= 4) { // At least 4 columns are expected
+	                    parts[3] = newPassword;
+	                    allLines.set(i, String.join(",", parts));
+	                    break;
+	                }
+	            }
+	        }
+	        Files.write(profilesFilePath, allLines);
+	    } catch (IOException e) {
+	        errorMessage.setText("Error updating password.");
+	        e.printStackTrace();
+	    }
 	}
+
 
 	//Method to get the password for a given username
 	private String getPasswordForUsername(String username) {
@@ -183,7 +184,7 @@ public class ProfileController {
 					.findFirst()
 					.map(line -> {
 						String[] parts = line.split(",");
-						return (parts.length == 4) ? parts[3] : "";
+						return (parts.length == 5) ? parts[3] : "";
 					})
 					.orElse("");
 		} catch (IOException e) {
@@ -194,7 +195,7 @@ public class ProfileController {
 
 	//Method to check if a username already exists
 	private boolean usernameExists(String username) {
-		File profilesFile = new File("Profiles.csv");
+		File profilesFile = new File("Main.PROFILES_FILE_PATH");
 		try {
 			return Files.lines(profilesFile.toPath()).anyMatch(line -> line.startsWith(username + ","));
 		} catch (IOException e) {

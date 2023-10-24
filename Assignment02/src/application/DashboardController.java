@@ -43,7 +43,9 @@ public class DashboardController {
 	@FXML
 	private Label upgradeLabel;
 	@FXML
-	private Button upgradebutton;
+	private Label vip;
+	@FXML
+	private Button upgradeButton;
 
 	@FXML
 	public void initialize() {
@@ -59,7 +61,8 @@ public class DashboardController {
 	    // If the user is a VIP, hide the upgradeLabel and upgradebutton
 	    if (isVIP) {
 	        upgradeLabel.setOpacity(0);
-	        upgradebutton.setOpacity(0);
+	        upgradeButton.setOpacity(0);
+	        vip.setText("VIP");
 	    }
 
 	}
@@ -92,7 +95,7 @@ public class DashboardController {
 
 			for (String line : lines) {
 				String[] parts = line.split(",");
-				if (parts.length == 4 && parts[0].equals(username)) {
+				if (parts.length == 5 && parts[0].equals(username)) {
 					String firstName = parts[1];
 					String lastName = parts[2];
 					//Set the welcome message with the first name and last name
@@ -141,11 +144,6 @@ public class DashboardController {
 		scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
-	}
-
-	//Load the edit profile window 
-	public void upgradeProfile(ActionEvent event) throws IOException {
-
 	}
 
 	//Load the add post window 
@@ -320,11 +318,68 @@ public class DashboardController {
 			return false;
 		}
 	}
+	
+	public void upgradeProfile(ActionEvent event) throws IOException {
+	    String loggedInUsername = LoginController.getLoggedInUsername();
+
+	    //Check if the user is already a VIP
+	    if (checkVIPStatus(loggedInUsername)) {
+	        // If already a VIP, do nothing
+	        return;
+	    }
+
+	    //Display a confirmation dialog
+	    Alert confirmUpgrade = new Alert(AlertType.CONFIRMATION);
+	    confirmUpgrade.setTitle("Upgrade Confirmation");
+	    confirmUpgrade.setHeaderText("Would you like to subscribe to the application for a monthly fee of $0?");
+	    confirmUpgrade.setContentText("Click OK to confirm.");
+
+	    //Get the user's choice
+	    ButtonType result = confirmUpgrade.showAndWait().orElse(ButtonType.CANCEL);
+
+	    //If the user clicks OK, proceed with the upgrade
+	    if (result == ButtonType.OK) {
+	        //Update the user's profile with VIP status
+	        Path profilesFilePath = Path.of(Main.PROFILES_FILE_PATH);
+
+	        try {
+	            List<String> allLines = Files.readAllLines(profilesFilePath);
+
+	            for (int i = 0; i < allLines.size(); i++) {
+	                String line = allLines.get(i);
+	                String[] parts = line.split(",");
+	                if (parts.length == 5 && parts[0].equals(loggedInUsername)) {
+
+	                    // Update the line to include VIP status
+	                    parts = new String[]{parts[0], parts[1], parts[2], parts[3], "vip"};
+	                    allLines.set(i, String.join(",", parts));
+	                    break;
+	                }
+	            }
+
+	            Files.write(profilesFilePath, allLines);
+	        } catch (IOException e) {
+	            errorMessage.setText("Error updating profile. Please try again.");
+	            e.printStackTrace();
+	            // Handle the exception
+	        }
+
+
+	        //Display an informational alert
+	        Alert infoAlert = new Alert(AlertType.INFORMATION);
+	        infoAlert.setTitle("VIP Subscription Success");
+	        infoAlert.setHeaderText(null);
+	        infoAlert.setContentText("Please log out and log in again to access VIP functionalities.");
+	        infoAlert.showAndWait();
+	    }
+	    //If the user clicks Cancel, do nothing
+	}
+
 
 	//method to check if post ID exists in file
 	private boolean isPostIDValid(String postID) {
 		try {
-			File postsFile = new File("Posts.csv");
+			File postsFile = new File(Main.POSTS_FILE_PATH);
 			List<String> lines = Files.readAllLines(Path.of(postsFile.getPath()));
 
 			for (String line : lines) {
@@ -359,6 +414,8 @@ public class DashboardController {
 		alert.setContentText(content);
 		alert.showAndWait();
 	}
+	
+	
 
 
 }

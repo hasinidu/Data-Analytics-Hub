@@ -88,7 +88,7 @@ public class AddpostsController {
 		                sharesField.getText(), dateTimeField.getText());
 
 		        //Append the new post to the "Posts.csv" file
-		        Path postsFilePath = Path.of("Posts.csv");
+		        Path postsFilePath = Path.of(Main.POSTS_FILE_PATH);
 		        Files.writeString(postsFilePath, newPost, StandardOpenOption.APPEND);
 
 		     // Display success alert
@@ -137,7 +137,7 @@ public class AddpostsController {
 	    }
 
 	    private boolean isPostIDUnique(String postID) throws IOException {
-	        File postsFile = new File("Posts.csv");
+	        File postsFile = new File(Main.POSTS_FILE_PATH);
 	        List<String> lines = Files.readAllLines(postsFile.toPath());
 
 	        for (String line : lines) {
