@@ -149,7 +149,7 @@ public class AddpostsController {
 	        }
 
 	        return true; 
-	        //If Post ID is unique
+	        //If the Post ID is unique
 	    }
 	    
 	  //Method to display an alert box
