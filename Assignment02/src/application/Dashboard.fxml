@@ -34,7 +34,7 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <Button layoutX="371.0" layoutY="207.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #2D3447; -fx-border-color: white;" text="Most liked posts" textFill="WHITE">
+      <Button layoutX="371.0" layoutY="207.0" mnemonicParsing="false" onAction="#LikedPosts" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #2D3447; -fx-border-color: white;" text="Most liked posts" textFill="WHITE">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
