@@ -54,37 +54,37 @@ public class DashboardController {
 
 		//Set welcome message
 		setWelcomeMessage(loggedInUsername);
-		
-		// Check if the user is a VIP
-	    boolean isVIP = checkVIPStatus(loggedInUsername);
 
-	    // If the user is a VIP, hide the upgradeLabel and upgradebutton
-	    if (isVIP) {
-	        upgradeLabel.setOpacity(0);
-	        upgradeButton.setOpacity(0);
-	        vip.setText("VIP");
-	    }
+		// Check if the user is a VIP
+		boolean isVIP = checkVIPStatus(loggedInUsername);
+
+		// If the user is a VIP, hide the upgradeLabel and upgradebutton
+		if (isVIP) {
+			upgradeLabel.setOpacity(0);
+			upgradeButton.setOpacity(0);
+			vip.setText("VIP");
+		}
 
 	}
-	
+
 	// Method to check if the user is a VIP
 	private boolean checkVIPStatus(String username) {
-	    try {
-	        File profilesFile = new File(Main.PROFILES_FILE_PATH);
-	        List<String> lines = Files.readAllLines(Path.of(profilesFile.getPath()));
+		try {
+			File profilesFile = new File(Main.PROFILES_FILE_PATH);
+			List<String> lines = Files.readAllLines(Path.of(profilesFile.getPath()));
 
-	        for (String line : lines) {
-	            String[] parts = line.split(",");
-	            if (parts.length == 5 && parts[0].equals(username) && "vip".equalsIgnoreCase(parts[4])) {
-	                return true; // User is a VIP
-	            }
-	        }
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	        // Handle the exception
-	    }
+			for (String line : lines) {
+				String[] parts = line.split(",");
+				if (parts.length == 5 && parts[0].equals(username) && "vip".equalsIgnoreCase(parts[4])) {
+					return true; // User is a VIP
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			// Handle the exception
+		}
 
-	    return false; // User is not a VIP
+		return false; // User is not a VIP
 	}
 
 	// Method to set the welcome message based on the username
@@ -181,11 +181,23 @@ public class DashboardController {
 
 	}
 
-	//Load the retrieve post window 
+	//Load the liked posts window 
 	public void LikedPosts(ActionEvent event) throws IOException {
 
 		//Load the liked post window
 		Parent root = FXMLLoader.load(getClass().getResource("LikedPosts.fxml"));
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+
+	}
+
+	//Load the sharrd post distribution post window 
+	public void ShareChartController(ActionEvent event) throws IOException {
+
+		//Load the liked post window
+		Parent root = FXMLLoader.load(getClass().getResource("SharesDistribution.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
 		stage.setScene(scene);
@@ -318,61 +330,61 @@ public class DashboardController {
 			return false;
 		}
 	}
-	
+
 	public void upgradeProfile(ActionEvent event) throws IOException {
-	    String loggedInUsername = LoginController.getLoggedInUsername();
+		String loggedInUsername = LoginController.getLoggedInUsername();
 
-	    //Check if the user is already a VIP
-	    if (checkVIPStatus(loggedInUsername)) {
-	        // If already a VIP, do nothing
-	        return;
-	    }
+		//Check if the user is already a VIP
+		if (checkVIPStatus(loggedInUsername)) {
+			// If already a VIP, do nothing
+			return;
+		}
 
-	    //Display a confirmation dialog
-	    Alert confirmUpgrade = new Alert(AlertType.CONFIRMATION);
-	    confirmUpgrade.setTitle("Upgrade Confirmation");
-	    confirmUpgrade.setHeaderText("Would you like to subscribe to the application for a monthly fee of $0?");
-	    confirmUpgrade.setContentText("Click OK to confirm.");
+		//Display a confirmation dialog
+		Alert confirmUpgrade = new Alert(AlertType.CONFIRMATION);
+		confirmUpgrade.setTitle("Upgrade Confirmation");
+		confirmUpgrade.setHeaderText("Would you like to subscribe to the application for a monthly fee of $0?");
+		confirmUpgrade.setContentText("Click OK to confirm.");
 
-	    //Get the user's choice
-	    ButtonType result = confirmUpgrade.showAndWait().orElse(ButtonType.CANCEL);
+		//Get the user's choice
+		ButtonType result = confirmUpgrade.showAndWait().orElse(ButtonType.CANCEL);
 
-	    //If the user clicks OK, proceed with the upgrade
-	    if (result == ButtonType.OK) {
-	        //Update the user's profile with VIP status
-	        Path profilesFilePath = Path.of(Main.PROFILES_FILE_PATH);
+		//If the user clicks OK, proceed with the upgrade
+		if (result == ButtonType.OK) {
+			//Update the user's profile with VIP status
+			Path profilesFilePath = Path.of(Main.PROFILES_FILE_PATH);
 
-	        try {
-	            List<String> allLines = Files.readAllLines(profilesFilePath);
+			try {
+				List<String> allLines = Files.readAllLines(profilesFilePath);
 
-	            for (int i = 0; i < allLines.size(); i++) {
-	                String line = allLines.get(i);
-	                String[] parts = line.split(",");
-	                if (parts.length == 5 && parts[0].equals(loggedInUsername)) {
+				for (int i = 0; i < allLines.size(); i++) {
+					String line = allLines.get(i);
+					String[] parts = line.split(",");
+					if (parts.length == 5 && parts[0].equals(loggedInUsername)) {
 
-	                    // Update the line to include VIP status
-	                    parts = new String[]{parts[0], parts[1], parts[2], parts[3], "vip"};
-	                    allLines.set(i, String.join(",", parts));
-	                    break;
-	                }
-	            }
+						// Update the line to include VIP status
+						parts = new String[]{parts[0], parts[1], parts[2], parts[3], "vip"};
+						allLines.set(i, String.join(",", parts));
+						break;
+					}
+				}
 
-	            Files.write(profilesFilePath, allLines);
-	        } catch (IOException e) {
-	            errorMessage.setText("Error updating profile. Please try again.");
-	            e.printStackTrace();
-	            // Handle the exception
-	        }
+				Files.write(profilesFilePath, allLines);
+			} catch (IOException e) {
+				errorMessage.setText("Error updating profile. Please try again.");
+				e.printStackTrace();
+				// Handle the exception
+			}
 
 
-	        //Display an informational alert
-	        Alert infoAlert = new Alert(AlertType.INFORMATION);
-	        infoAlert.setTitle("VIP Subscription Success");
-	        infoAlert.setHeaderText(null);
-	        infoAlert.setContentText("Please log out and log in again to access VIP functionalities.");
-	        infoAlert.showAndWait();
-	    }
-	    //If the user clicks Cancel, do nothing
+			//Display an informational alert
+			Alert infoAlert = new Alert(AlertType.INFORMATION);
+			infoAlert.setTitle("VIP Subscription Success");
+			infoAlert.setHeaderText(null);
+			infoAlert.setContentText("Please log out and log in again to access VIP functionalities.");
+			infoAlert.showAndWait();
+		}
+		//If the user clicks Cancel, do nothing
 	}
 
 
@@ -414,8 +426,8 @@ public class DashboardController {
 		alert.setContentText(content);
 		alert.showAndWait();
 	}
-	
-	
+
+
 
 
 }
