@@ -19,27 +19,27 @@
             <Font size="14.0" />
          </font>
       </Button>
-      <Button layoutX="121.0" layoutY="207.0" mnemonicParsing="false" onAction="#addPost" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #2D3447; -fx-border-color: white;" text="Add post" textFill="WHITE">
+      <Button layoutX="120.0" layoutY="185.0" mnemonicParsing="false" onAction="#addPost" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #2D3447; -fx-border-color: white;" text="Add post" textFill="WHITE">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <Button layoutX="371.0" layoutY="383.0" mnemonicParsing="false" onAction="#RetrievePost" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #2D3447; -fx-border-color: white;" text="Retrieve post" textFill="WHITE">
+      <Button layoutX="120.0" layoutY="420.0" mnemonicParsing="false" onAction="#RetrievePost" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #2D3447; -fx-border-color: white;" text="Retrieve post" textFill="WHITE">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <Button layoutX="621.0" layoutY="383.0" mnemonicParsing="false" onAction="#RemovePost" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #2D3447; -fx-border-color: white;" text="Remove post" textFill="WHITE">
+      <Button layoutX="365.0" layoutY="420.0" mnemonicParsing="false" onAction="#RemovePost" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #2D3447; -fx-border-color: white;" text="Remove post" textFill="WHITE">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <Button layoutX="371.0" layoutY="207.0" mnemonicParsing="false" onAction="#LikedPosts" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #2D3447; -fx-border-color: white;" text="Most liked posts" textFill="WHITE">
+      <Button layoutX="370.0" layoutY="185.0" mnemonicParsing="false" onAction="#LikedPosts" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #2D3447; -fx-border-color: white;" text="Most liked posts" textFill="WHITE">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <Button layoutX="616.0" layoutY="207.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #2D3447; -fx-border-color: white;" text="Export post" textFill="WHITE">
+      <Button layoutX="612.0" layoutY="420.0" mnemonicParsing="false" onAction="#ExportPost" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #2D3447; -fx-border-color: white;" text="Export post" textFill="WHITE">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -49,17 +49,32 @@
             <Font size="14.0" />
          </font>
       </Button>
-      <TextField fx:id="postIDField" layoutX="110.0" layoutY="417.0" prefHeight="32.0" prefWidth="217.0" promptText="Post ID" style="-fx-background-color: #2D3447; -fx-border-color: white; -fx-text-fill: white;">
+      <TextField fx:id="postIDField" layoutX="120.0" layoutY="339.0" prefHeight="32.0" prefWidth="217.0" promptText="Post ID" style="-fx-background-color: #2D3447; -fx-border-color: white; -fx-text-fill: white;">
          <font>
             <Font size="14.0" />
          </font>
       </TextField>
-      <Label layoutX="110.0" layoutY="460.0" text="Enter Post ID to Retrieve or Remove post" textFill="WHITE" />
-      <Label fx:id="errorMessage" layoutX="110.0" layoutY="504.0" prefHeight="20.0" prefWidth="311.0" textFill="#ff007f">
+      <Label layoutX="120.0" layoutY="378.0" text="Enter Post ID to Retrieve, Remove post or Export post" textFill="WHITE" />
+      <Label fx:id="errorMessage" layoutX="365.0" layoutY="345.0" prefHeight="20.0" prefWidth="311.0" textFill="#ff007f">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Line endX="392.0" layoutX="464.0" layoutY="346.0" startX="-375.0" stroke="WHITE" />
+      <Line endX="392.0" layoutX="462.0" layoutY="319.0" startX="-375.0" stroke="WHITE" />
+      <Label fx:id="vip" layoutX="116.0" layoutY="54.0" prefHeight="27.0" prefWidth="74.0" textFill="#ffd608">
+         <font>
+            <Font name="System Bold Italic" size="24.0" />
+         </font>
+      </Label>
+      <Button fx:id="upgradeButton" layoutX="523.0" layoutY="54.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="92.0" style="-fx-background-color: #2D3447; -fx-border-color: white;" text="Upgrade" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Label fx:id="upgradeLabel" layoutX="329.0" layoutY="62.0" prefHeight="20.0" prefWidth="183.0" text="Upgrade to VIP membership!" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

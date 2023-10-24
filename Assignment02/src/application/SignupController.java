@@ -70,7 +70,7 @@ public class SignupController {
 			
 
 			// Display success alert
-	        showAlert(AlertType.INFORMATION, "Profile Successfully Created", "Congratulations!",
+	        showAlert(AlertType.INFORMATION, "Profile Successfully Created",
 	                "Your profile has been successfully created.");
 
 	        // Clear fields and go back to login
@@ -98,10 +98,10 @@ public class SignupController {
 	}
 	
 	//Method to display an alert box
-	private void showAlert(AlertType alertType, String title, String header, String content) {
+	private void showAlert(AlertType alertType, String title, String content) {
 	    Alert alert = new Alert(alertType);
 	    alert.setTitle(title);
-	    alert.setHeaderText(header);
+	    alert.setHeaderText(null);
 	    alert.setContentText(content);
 	    alert.showAndWait();
 	}

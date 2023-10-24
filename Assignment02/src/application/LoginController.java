@@ -10,9 +10,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 public class LoginController {
@@ -50,10 +52,10 @@ public class LoginController {
 
 		//Check if the user name and password match in file
 		if (credentialsMatch(username, password)) {
-			
+
 			//Set the username
 			setLoggedInUsername(username);
-			
+
 			//Load the dashboard
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("Dashboard.fxml"));
 			root = loader.load();
@@ -86,7 +88,6 @@ public class LoginController {
 		}
 	}
 
-
 	//Method to get the logged-in username
 	public static String getLoggedInUsername() {
 		return loggedInUsername;
@@ -96,6 +97,5 @@ public class LoginController {
 	public static void setLoggedInUsername(String username) {
 		loggedInUsername = username;
 	}
-
 
 }

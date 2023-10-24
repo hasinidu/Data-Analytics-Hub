@@ -15,6 +15,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -52,42 +54,42 @@ public class LikedPosts {
 
 	// Read posts from the file and get the most liked posts
 	private List<String> getMostLikedPosts(int numberOfPosts) {
-	    List<String> mostLikedPosts = new ArrayList<>();
+		List<String> mostLikedPosts = new ArrayList<>();
 
-	    try {
-	        File postsFile = new File("Posts.csv");
-	        BufferedReader reader = new BufferedReader(new FileReader(postsFile));
+		try {
+			File postsFile = new File("Posts.csv");
+			BufferedReader reader = new BufferedReader(new FileReader(postsFile));
 
-	        // Get all posts, sorted by like count in descending order
-	        mostLikedPosts = reader.lines()
-	                .filter(line -> {
-	                    String[] parts = line.split(",");
-	                    if (parts.length >= 4) { // Ensure there are at least 4 columns
-	                        try {
-	                            Integer.parseInt(parts[3]); // Check if the 4th column is a valid number
-	                            return true;
-	                        } catch (NumberFormatException e) {
-	                            return false;
-	                        }
-	                    }
-	                    return false;
-	                })
-	                .sorted(Comparator.comparingInt(line -> {
-	                    String[] parts = ((String) line).split(",");
-	                    if (parts.length >= 4) {
-	                        return Integer.parseInt(parts[3]);
-	                    }
-	                    return 0;
-	                }).reversed())
-	                .limit(numberOfPosts) // Limit to the specified number of posts
-	                .collect(Collectors.toList());
+			// Get all posts, sorted by like count in descending order
+			mostLikedPosts = reader.lines()
+					.filter(line -> {
+						String[] parts = line.split(",");
+						if (parts.length >= 4) { // Ensure there are at least 4 columns
+							try {
+								Integer.parseInt(parts[3]); // Check if the 4th column is a valid number
+								return true;
+							} catch (NumberFormatException e) {
+								return false;
+							}
+						}
+						return false;
+					})
+					.sorted(Comparator.comparingInt(line -> {
+						String[] parts = ((String) line).split(",");
+						if (parts.length >= 4) {
+							return Integer.parseInt(parts[3]);
+						}
+						return 0;
+					}).reversed())
+					.limit(numberOfPosts) // Limit to the specified number of posts
+					.collect(Collectors.toList());
 
-	        reader.close();
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	    }
+			reader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
-	    return mostLikedPosts;
+		return mostLikedPosts;
 	}
 
 	// Load Most liked posts
@@ -113,7 +115,6 @@ public class LikedPosts {
 		displayPosts(mostLikedPosts);
 	}
 
-	// Display filtered posts
 	private void displayPosts(List<String> posts) {
 		StringBuilder stringBuilder = new StringBuilder();
 
@@ -122,11 +123,46 @@ public class LikedPosts {
 		} else {
 			for (int i = 0; i < posts.size(); i++) {
 				String post = posts.get(i);
-				stringBuilder.append((i + 1)).append(". ").append(post).append("\n");
+				String[] parts = post.split(",");
+				if (parts.length >= 6) { // Ensure there are at least 6 columns
+					stringBuilder.append((i + 1)).append(". ")
+					.append("ID: ").append(parts[0]).append("    ")
+					.append("Content: ").append(parts[1]).append("    ")
+					.append("Author: ").append(parts[2]).append("    ")
+					.append("Likes: ").append(parts[3]).append("    ")
+					.append("Shares: ").append(parts[4]).append("    ")
+					.append("Date - Time: ").append(parts[5]).append("\n");
+				}
 			}
 		}
 
 		// Set the text of the Label
 		postsField.setText(stringBuilder.toString());
 	}
+	
+	// Load the Login window when the LogOut button is clicked and clear Logged username
+    public void logout(ActionEvent event) throws IOException {
+        // Display a confirmation dialog
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Logout Confirmation");
+        alert.setHeaderText("Are you sure you want to log out?");
+        alert.setContentText("Click OK to confirm.");
+
+        // Get the user's choice
+        ButtonType result = alert.showAndWait().orElse(ButtonType.CANCEL);
+
+        // If the user clicks OK, proceed with logout
+        if (result == ButtonType.OK) {
+            // Clear the logged-in username
+            LoginController.setLoggedInUsername(null);
+
+            // Load the Login window
+            Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }
+        // If the user clicks Cancel, do nothing
+    }
 }

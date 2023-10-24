@@ -12,6 +12,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -87,8 +89,29 @@ public class RetrievePostController {
 			stage.show();
 		}
 		
-		public void RetrievePost(ActionEvent event) throws IOException {
-			
-		}
-	
+		// Load the Login window when the LogOut button is clicked and clear Logged username
+	    public void logout(ActionEvent event) throws IOException {
+	        // Display a confirmation dialog
+	        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+	        alert.setTitle("Logout Confirmation");
+	        alert.setHeaderText("Are you sure you want to log out?");
+	        alert.setContentText("Click OK to confirm.");
+
+	        // Get the user's choice
+	        ButtonType result = alert.showAndWait().orElse(ButtonType.CANCEL);
+
+	        // If the user clicks OK, proceed with logout
+	        if (result == ButtonType.OK) {
+	            // Clear the logged-in username
+	            LoginController.setLoggedInUsername(null);
+
+	            // Load the Login window
+	            Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+	            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+	            scene = new Scene(root);
+	            stage.setScene(scene);
+	            stage.show();
+	        }
+	        // If the user clicks Cancel, do nothing
+	    }
 }

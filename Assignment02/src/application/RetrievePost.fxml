@@ -52,5 +52,10 @@
             <Font size="18.0" />
          </font>
       </Label>
+      <Button layoutX="855.0" layoutY="64.0" mnemonicParsing="false" onAction="#logout" prefHeight="35.0" prefWidth="74.0" style="-fx-background-color: #2D3447; -fx-border-color: white;" text="Log Out" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

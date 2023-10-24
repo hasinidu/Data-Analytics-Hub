@@ -12,9 +12,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 public class ProfileController {
@@ -26,11 +29,11 @@ public class ProfileController {
 	@FXML
 	TextField lNameField;
 	@FXML
-    private PasswordField passwordField;
-    @FXML
-    private PasswordField newPasswordField;
-    @FXML
-    private PasswordField newPasswordField2;
+	private PasswordField passwordField;
+	@FXML
+	private PasswordField newPasswordField;
+	@FXML
+	private PasswordField newPasswordField2;
 	@FXML
 	private Label errorMessage;
 
@@ -112,62 +115,64 @@ public class ProfileController {
 				}
 			}
 			Files.write(profilesFilePath, allLines);
-			errorMessage.setText("Profile successfully updated!");
+			// Display success alert
+			showAlert(AlertType.WARNING, "Success", "profile updated Successfully");
 		} catch (IOException e) {
 			errorMessage.setText("Error updating profile data.");
 			e.printStackTrace();
 		}
 	}
-	
+
 	@FXML
-    public void changePassword(ActionEvent event) throws IOException {
-        String oldPassword = passwordField.getText();
-        String newPassword = newPasswordField.getText();
-        String confirmPassword = newPasswordField2.getText();
+	public void changePassword(ActionEvent event) throws IOException {
+		String oldPassword = passwordField.getText();
+		String newPassword = newPasswordField.getText();
+		String confirmPassword = newPasswordField2.getText();
 
-        //Check if old password matches the current password
-        if (!oldPassword.equals(getPasswordForUsername(LoginController.getLoggedInUsername()))) {
-            errorMessage.setText("Incorrect old password. Please try again.");
-            return;
-        }
+		//Check if old password matches the current password
+		if (!oldPassword.equals(getPasswordForUsername(LoginController.getLoggedInUsername()))) {
+			errorMessage.setText("Incorrect old password. Please try again.");
+			return;
+		}
 
-        //Check if new password and confirm password match
-        if (!newPassword.equals(confirmPassword)) {
-            errorMessage.setText("New passwords do not match. Please confirm your new password.");
-            return;
-        }
+		//Check if new password and confirm password match
+		if (!newPassword.equals(confirmPassword)) {
+			errorMessage.setText("New passwords do not match. Please confirm your new password.");
+			return;
+		}
 
-        //Update the password in the CSV file
-        updatePassword(newPassword);
+		//Update the password in the CSV file
+		updatePassword(newPassword);
 
-        errorMessage.setText("Password successfully changed!");
-    }
+		// Display success alert
+		showAlert(AlertType.WARNING, "Success", "Password changed");
+	}
 
 
 	//Method to change password which is called in changePassword method
-    private void updatePassword(String newPassword) {
-        String username = LoginController.getLoggedInUsername();
-        Path profilesFilePath = Path.of("Profiles.csv");
+	private void updatePassword(String newPassword) {
+		String username = LoginController.getLoggedInUsername();
+		Path profilesFilePath = Path.of("Profiles.csv");
 
-        try {
-            List<String> allLines = Files.readAllLines(profilesFilePath);
-            for (int i = 0; i < allLines.size(); i++) {
-                String line = allLines.get(i);
-                if (line.startsWith(username + ",")) {
-                    String[] parts = line.split(",");
-                    if (parts.length == 4) {
-                        parts[3] = newPassword;
-                        allLines.set(i, String.join(",", parts));
-                        break;
-                    }
-                }
-            }
-            Files.write(profilesFilePath, allLines);
-        } catch (IOException e) {
-            errorMessage.setText("Error updating password.");
-            e.printStackTrace(); 
-        }
-    }
+		try {
+			List<String> allLines = Files.readAllLines(profilesFilePath);
+			for (int i = 0; i < allLines.size(); i++) {
+				String line = allLines.get(i);
+				if (line.startsWith(username + ",")) {
+					String[] parts = line.split(",");
+					if (parts.length == 4) {
+						parts[3] = newPassword;
+						allLines.set(i, String.join(",", parts));
+						break;
+					}
+				}
+			}
+			Files.write(profilesFilePath, allLines);
+		} catch (IOException e) {
+			errorMessage.setText("Error updating password.");
+			e.printStackTrace(); 
+		}
+	}
 
 	//Method to get the password for a given username
 	private String getPasswordForUsername(String username) {
@@ -197,5 +202,40 @@ public class ProfileController {
 			return false;
 		}
 	}
+
+	//Method to display an alert box
+	private void showAlert(AlertType alertType, String title,String content) {
+		Alert alert = new Alert(alertType);
+		alert.setTitle(title);
+		alert.setHeaderText(null);
+		alert.setContentText(content);
+		alert.showAndWait();
+	}
+	
+	// Load the Login window when the LogOut button is clicked and clear Logged username
+    public void logout(ActionEvent event) throws IOException {
+        // Display a confirmation dialog
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Logout Confirmation");
+        alert.setHeaderText("Are you sure you want to log out?");
+        alert.setContentText("Click OK to confirm.");
+
+        // Get the user's choice
+        ButtonType result = alert.showAndWait().orElse(ButtonType.CANCEL);
+
+        // If the user clicks OK, proceed with logout
+        if (result == ButtonType.OK) {
+            // Clear the logged-in username
+            LoginController.setLoggedInUsername(null);
+
+            // Load the Login window
+            Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }
+        // If the user clicks Cancel, do nothing
+    }
 
 }

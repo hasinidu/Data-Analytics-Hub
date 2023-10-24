@@ -19,9 +19,9 @@
             <Font size="14.0" />
          </font>
       </Button>
-      <ScrollPane layoutX="86.0" layoutY="219.0" prefHeight="325.0" prefWidth="776.0">
+      <ScrollPane layoutX="86.0" layoutY="219.0" prefHeight="325.0" prefWidth="776.0" style="-fx-background-color: #2D3447; -fx-border-color: #2D3447;">
          <content>
-            <Label fx:id="postsField" alignment="TOP_LEFT" prefHeight="322.0" prefWidth="774.0">
+            <Label fx:id="postsField" alignment="TOP_LEFT" prefHeight="542.0" prefWidth="1233.0" style="-fx-background-color: #2D3447; -fx-border-color: #2D3447;" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
@@ -43,5 +43,10 @@
             <Font size="14.0" />
          </font>
       </Label>
+      <Button layoutX="788.0" layoutY="80.0" mnemonicParsing="false" onAction="#logout" prefHeight="35.0" prefWidth="74.0" style="-fx-background-color: #2D3447; -fx-border-color: white;" text="Log Out" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
