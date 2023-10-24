@@ -101,7 +101,7 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Label fx:id="errorMessage" layoutX="98.0" layoutY="131.0" textFill="#ff007f">
+      <Label fx:id="errorMessage" layoutX="98.0" layoutY="130.0" prefHeight="20.0" prefWidth="31.0" textFill="#ff007f">
          <font>
             <Font size="14.0" />
          </font>

@@ -12,8 +12,8 @@ import javafx.scene.Scene;
 
 public class Main extends Application {
 
-	private static final String PROFILES_FILE_PATH = "Profiles.csv";
-	private static final String POSTS_FILE_PATH = "Posts.csv";
+	public static final String PROFILES_FILE_PATH = "Profiles.csv";
+	public static final String POSTS_FILE_PATH = "Posts.csv";
 	
 	@Override
 	public void start(Stage primaryStage) {

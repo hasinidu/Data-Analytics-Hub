@@ -12,30 +12,31 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class RetrievePostController {
 
-	//textfields and textarea in the FXML doc
+	//Labels and textarea in the FXML doc
 	@FXML
-    private TextField postIDField;
+    private Label postIDField;
 
     @FXML
     private TextArea contentField;
 
     @FXML
-    private TextField authorField;
+    private Label authorField;
 
     @FXML
-    private TextField likesField;
+    private Label likesField;
 
     @FXML
-    private TextField sharesField;
+    private Label sharesField;
 
     @FXML
-    private TextField dateTimeField;
+    private Label dateTimeField;
     
 	private Stage stage;
 	private Scene scene;
@@ -54,12 +55,12 @@ public class RetrievePostController {
                 String[] parts = line.split(",");
                 if (parts.length >= 6 && parts[0].equals(postID)) {
                     // Fill the fields with post details
-                    postIDField.setText(parts[0]);
+                    postIDField.setText("Post ID : " + parts[0]);
                     contentField.setText(parts[1]);
-                    authorField.setText(parts[2]);
-                    likesField.setText(parts[3]);
-                    sharesField.setText(parts[4]);
-                    dateTimeField.setText(parts[5]);
+                    authorField.setText("Author : " +parts[2]);
+                    likesField.setText("Likes : " +parts[3]);
+                    sharesField.setText("Shares : " +parts[4]);
+                    dateTimeField.setText("Date & Time : " +parts[5]);
                     break; // Break when the matching post is found
                 }
             }
